@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Productivity Digital Twin{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'productivity/css/style.css' %}">
+</head>
+<body data-csrf="{{ csrf_token }}">
+  <header class="topbar">
+    <div class="brand">Productivity Digital Twin</div>
+    <nav>
+      <a href="{% url 'productivity:dashboard' %}">Dashboard</a>
+      <a href="{% url 'productivity:predict' %}">New Prediction</a>
+    </nav>
+  </header>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends "productivity/base.html" %}
+{% load static %}
+{% block content %}
+<section class="cards">
+  <div class="card stat"><span>Employees</span><strong>{{ data.summary.total }}</strong></div>
+  <div class="card stat"><span>High productivity</span><strong>{{ data.summary.counts.High }}</strong></div>
+  <div class="card stat"><span>Avg tasks completed</span><strong>{{ data.summary.avg_tasks }}</strong></div>
+  <div class="card stat"><span>Avg satisfaction</span><strong>{{ data.summary.avg_satisfaction }}</strong></div>
+</section>
+
+<section class="grid2">
+  <div class="card"><h2>Productivity distribution</h2><div class="chart-box"><canvas id="distChart"></canvas></div></div>
+  <div class="card"><h2>Average indicators by level</h2><div class="chart-box"><canvas id="levelChart"></canvas></div></div>
+</section>
+
+<section class="card twin">
+  <h2>Employee Digital Twin</h2>
+  <div class="twin-select">
+    <label for="employeeSelect">Select employee</label>
+    <select id="employeeSelect"></select>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <h3>Profile &amp; indicators</h3>
+      <table class="kv" id="profileTable"></table>
+    </div>
+    <div>
+      <h3>What-if simulation</h3>
+      <p class="muted">Move the sliders to change work and training variables.</p>
+      <div id="sliders"></div>
+      <button id="resetBtn" class="btn secondary" type="button">Reset to actual values</button>
+    </div>
+  </div>
+
+  <div class="grid2 results">
+    <div class="pred-box">
+      <h3>Current prediction</h3>
+      <div id="baseLevel" class="badge">-</div>
+      <div class="chart-box small"><canvas id="baseChart"></canvas></div>
+    </div>
+    <div class="pred-box">
+      <h3>Simulated prediction</h3>
+      <div id="simLevel" class="badge">-</div>
+      <div class="chart-box small"><canvas id="simChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+{{ data|json_script:"dashboard-data" }}
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{% static 'productivity/js/dashboard.js' %}"></script>
+{% endblock %}

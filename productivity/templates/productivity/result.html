@@ -1,0 +1,24 @@
+{% extends "productivity/base.html" %}
+{% block title %}Prediction Result{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Predicted productivity level</h2>
+  <div class="badge {{ result.level|lower }}">{{ result.level }}</div>
+
+  <h3>Class probabilities</h3>
+  {% for b in bars %}
+  <div class="bar-row">
+    <span>{{ b.name }}</span>
+    <div class="bar"><div class="fill {{ b.name|lower }}" style="width: {{ b.pct }}%"></div></div>
+    <span>{{ b.pct }}%</span>
+  </div>
+  {% endfor %}
+
+  <h3>Inputs used</h3>
+  <table class="kv">
+    {% for i in inputs %}<tr><th>{{ i.label }}</th><td>{{ i.value }}</td></tr>{% endfor %}
+  </table>
+  <a class="btn" href="{% url 'productivity:predict' %}">Predict another</a>
+  <a class="btn secondary" href="{% url 'productivity:dashboard' %}">Back to dashboard</a>
+</section>
+{% endblock %}

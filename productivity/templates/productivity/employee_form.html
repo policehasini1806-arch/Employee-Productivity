@@ -1,0 +1,17 @@
+{% extends "productivity/base.html" %}
+{% block title %}New Prediction{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Predict productivity level</h2>
+  <p class="muted">Enter the employee attributes. Defaults are dataset medians.</p>
+  <form method="post" class="form-grid">
+    {% csrf_token %}
+    {% for f in fields %}
+    <label>{{ f.label }}
+      <input type="number" name="{{ f.name }}" step="any" value="{{ f.value }}" required>
+    </label>
+    {% endfor %}
+    <div class="form-actions"><button class="btn" type="submit">Predict</button></div>
+  </form>
+</section>
+{% endblock %}
